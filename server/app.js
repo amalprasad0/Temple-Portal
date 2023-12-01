@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const admin = require("firebase-admin");
-const { auth, db } = require("../db");
+const { auth, db } = require("./db");
 
 const app = express();
 app.use(express.urlencoded({ extended: true }));
