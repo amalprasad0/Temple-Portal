@@ -13,7 +13,139 @@ app.use(cors());
 app.get("/", (req, res) => {
   res.send("hello");
 });
+app.get("/memberdetails", (req, res) => {
+  var docRef = db.collection('memberDetails');
+  try {
+      docRef.get().then((querySnapshot) => {
+          var memberDetails = [];
+          querySnapshot.forEach((doc) => {
+              if (doc.exists) {
+                  var data = doc.data();
+                  console.log("Document data:", data);
+                  memberDetails.push({
+                      memberName: data.memberName,
+                      mobileNo: data.mobileNo,
+                      memberAddress: data.memberAddress,
+                      memberDob: data.memberDob,
+                      astroStar: data.astroStar,
+                      pinCode: data.pinCode,
+                      memberArea: data.memberArea,
+                  });
+              } else {
+                  console.log("No such document!");
+              }
+          });
+          res.json({
+              message: 'Member Details Found',
+              memberdata: memberDetails
+          });
+      });
+  } catch (error) {
+      console.log("Error:", error);
+      res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+app.get("/memberrequestname", async (req, res) => {
+  // Assuming familyName is passed in the request body
+  const memberName = req.body.memberName;
 
+  if (!memberName) {
+      return res.status(400).json({ error: "familyName parameter is required in the request body" });
+  }
+
+  try {
+      // Retrieve documents with the specified familyName
+      const querySnapshot = await db.collection('memberDetails').where('memberName', '==', memberName).get();
+      const memberDetails = [];
+
+      querySnapshot.forEach((doc) => {
+          if (doc.exists) {
+              const data = doc.data();
+              memberDetails.push({
+                  memberName: data.memberName,
+                  mobileNo: data.mobileNo,
+                  memberAddress: data.memberAddress,
+                  memberDob: data.memberDob,
+                  astroStar: data.astroStar,
+                  pinCode: data.pinCode,
+                  memberArea: data.memberArea
+              });
+          }
+      });
+
+      res.json({ message: "Member Details Found", success: true, memberDetails });
+  } catch (error) {
+      console.error("Error:", error);
+      res.status(500).json({ error: "Internal Server Error" });
+  }
+});;
+app.get("/memberrequestfamily", async (req, res) => {
+  // Assuming familyName is passed in the request body
+  const familyName = req.body.family;
+
+  if (!familyName) {
+      return res.status(400).json({ error: "familyName parameter is required in the request body" });
+  }
+
+  try {
+      // Retrieve documents with the specified familyName
+      const querySnapshot = await db.collection('memberDetails').where('familyName', '==', familyName).get();
+      const memberDetails = [];
+
+      querySnapshot.forEach((doc) => {
+          if (doc.exists) {
+              const data = doc.data();
+              memberDetails.push({
+                  memberName: data.memberName,
+                  mobileNo: data.mobileNo,
+                  memberAddress: data.memberAddress,
+                  memberDob: data.memberDob,
+                  astroStar: data.astroStar,
+                  pinCode: data.pinCode,
+                  memberArea: data.memberArea
+              });
+          }
+      });
+
+      res.json({ message: "Member Details Found", success: true, memberDetails });
+  } catch (error) {
+      console.error("Error:", error);
+      res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+app.get("/memberrequestmobile", async (req, res) => {
+  // Assuming familyName is passed in the request body
+  const mobileNo = req.body.mobile;
+
+  if (!mobileNo) {
+      return res.status(400).json({ error: "familyName parameter is required in the request body" });
+  }
+  try {
+      // Retrieve documents with the specified familyName
+      const querySnapshot = await db.collection('memberDetails').where('mobileNo', '==', mobileNo).get();
+      const memberDetails = [];
+
+      querySnapshot.forEach((doc) => {
+          if (doc.exists) {
+              const data = doc.data();
+              memberDetails.push({
+                  memberName: data.memberName,
+                  mobileNo: data.mobileNo,
+                  memberAddress: data.memberAddress,
+                  memberDob: data.memberDob,
+                  astroStar: data.astroStar,
+                  pinCode: data.pinCode,
+                  memberArea: data.memberArea
+              });
+          }
+      });
+
+      res.json({ message: "Member Details Found", success: true, memberDetails });
+  } catch (error) {
+      console.error("Error:", error);
+      res.status(500).json({ error: "Internal Server Error" });
+  }
+});
 app.post("/userregistration", async (req, res) => {
   const { phoneNumber, UserCode } = req.body;
 
@@ -114,14 +246,16 @@ app.post("/userCode", async (req, res) => {
 });
 app.post("/userdetails",(req,res) => {
     const{name,mobile,address,star,familyName,pincode,area,dob}=req.body;
+    console.log(req.body);
     try{
-        var doc=db.collection('memberDetails').doc(familyName).set({
+        var doc=db.collection('memberDetails').add({
             memberName:name,
             mobileNo:mobile,
             memberAddress:address,
             memberDob:dob,
             astroStar:star,
             pinCode:pincode,
+            family:familyName,
             memberArea:area
         })
         console.log("added ",doc);
