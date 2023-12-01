@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const admin = require("firebase-admin");
-const { auth, db } = require("./db");
+const { auth, db } = require("../db");
 
 const app = express();
 app.use(express.urlencoded({ extended: true }));
@@ -61,7 +61,7 @@ app.post("/userregistration", async (req, res) => {
     } else {
       res
         .status(500)
-        .json({ error: "Error creating new user", userReg: false });
+        .json({ error: "user exists", userReg: false });
     }
   }
 });
