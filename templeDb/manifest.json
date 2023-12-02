@@ -1,7 +1,7 @@
 {
     "name": "Temple Portal",
     "short_name": "Portal",
-    "start_url": "#/",
+    "start_url": "/index.html",
     "icons": [
     {
     "src": "https://cdn-icons-png.flaticon.com/512/6026/6026379.png",
