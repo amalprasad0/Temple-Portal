@@ -6,9 +6,9 @@ const manifestForPlugIn = {
   registerType:'prompt',
   includeAssests:['favicon.ico', "apple-touc-icon.png", "masked-icon.svg"],
   manifest:{
-    name:"React-vite-app",
-    short_name:"react-vite-app",
-    description:"I am a simple vite app",
+    name:"Temple web  Portal",
+    short_name:"temple Portal",
+    description:"Temple Web portal",
     icons:[{
       src: 'https://cdn-icons-png.flaticon.com/512/6026/6026379.png',
       sizes:'192x192',
