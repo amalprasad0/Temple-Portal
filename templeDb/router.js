@@ -3,7 +3,7 @@ import { HomePage,LoginPage,MemberDetailsPage,UserDetailsPage,SuccessPage,Birthd
 
 export const pageRoutes = [
     { path: "/home", component: HomePage },
-    { path: "/login", component: LoginPage },
+    { path: "/", component: LoginPage },
     {path:"/member",component:MemberDetailsPage},
     {path:"/userdetails",component:UserDetailsPage},
     {path:"/added",component:SuccessPage},

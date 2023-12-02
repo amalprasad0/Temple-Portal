@@ -28,7 +28,7 @@ export function UserDetailsPage() {
     try {
       // Post data to the server
       confirm("എന്റെ / എന്റെ കുടുംബാംഗത്തിന്റെ വിശദാംശങ്ങൾ യഥാർത്ഥമാണെന്ന് ഞാൻ സ്ഥിരീകരിക്കുന്നു");
-      const response = await axios.post('http://localhost:3000/userdetails', formData);
+      const response = await axios.post('https://templedb-production.onrender.com/userdetails', formData);
         console.log(response)
       if (response.status === 200) {
         if(response.data.success==true){
@@ -78,7 +78,7 @@ export function UserDetailsPage() {
         <h4 className="text-center mt-2 fw-semibold">ശ്രീ കിഴക്കൻകാവ് കിരാതേശ്വര ധർമ്മശാസ്താ ക്ഷേത്രം</h4>
         <p className="text-center mt-2">വിശദാംശങ്ങൾ മലയാളത്തിൽ പൂരിപ്പിക്കുക</p>
         </div>}
-      <div className="container">
+      <div className="container mt-5">
         <Card bg="dark" text="light" className="mx-auto" style={{ maxWidth: '600px', borderRadius: '10px' }}>
           <Card.Header className="text-center">
             <h5>അംഗങ്ങളുടെ വിശദാംശങ്ങളുടെ ഫോം</h5>

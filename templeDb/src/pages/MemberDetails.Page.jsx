@@ -13,7 +13,7 @@ export function MemberDetailsPage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/memberdetails");
+        const response = await axios.get("https://templedb-production.onrender.com/memberdetails");
         setMemberData(response.data.memberdata);
         setLoading(false);
       } catch (error) {
@@ -24,7 +24,7 @@ export function MemberDetailsPage() {
         if (isLoggedIn) {
           navigateTo("/member");
         }else{
-            navigateTo("/login");
+            navigateTo("/");
         }
     fetchData();
   }, []);

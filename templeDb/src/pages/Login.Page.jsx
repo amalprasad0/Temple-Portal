@@ -8,7 +8,7 @@ export function LoginPage() {
         if (isLoggedIn) {
           navigateTo("/member");
         }else{
-            navigateTo("/login");
+            navigateTo("/");
         }
       }, []);
 const navigateTo=useNavigate()

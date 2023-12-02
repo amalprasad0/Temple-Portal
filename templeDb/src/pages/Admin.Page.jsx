@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useState, } from "react";
 import { Card, Form, Button } from "react-bootstrap";
 import { NavBar } from "../components/NavBar";
 
@@ -10,7 +10,7 @@ export function AdminPage() {
   const handleGeneratePasscode = async () => {
     if(mobileNumber!=""){
     try {
-      const resp = await axios.post("http://localhost:3000/userCode", {
+      const resp = await axios.post("https://templedb-production.onrender.com/userCode", {
         phoneNumber: mobileNumber,
       });
       if (resp.data.userCodeExists == true) {

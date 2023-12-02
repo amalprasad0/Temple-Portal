@@ -1,9 +1,15 @@
 import React from 'react';
 import { Player } from '@lottiefiles/react-lottie-player';
 import { useNavigate } from 'react-router-dom';
+import { NavBar } from '../components/NavBar';
 export function SuccessPage() {
     const navigate = useNavigate();
+    const isLogin = localStorage.getItem('login') === 'true';
+
   return (
+    <>
+     {isLogin ?<NavBar />:<div>
+        </div>}
     <div className="d-flex flex-column align-items-center justify-content-center vh-100" style={{ background: 'linear-gradient(to right, #CFE4E3, #E8E5EB)' }}>
       <Player
         src='https://lottie.host/1f50409f-7031-42bb-be9f-766c20952a50/vCIuFdLp6g.json'
@@ -23,5 +29,6 @@ export function SuccessPage() {
       
       <p className='text-center mt-3 mt-auto'>Developed by Universal Technologies pvt Chittarikkal</p>
     </div>
+    </>
   );
 }
