@@ -31,6 +31,7 @@ export function BirthdayDetailsPage() {
   }, []);
 
   const currentDate = new Date();
+
   const filteredMembers = memberData
     .filter(
       (member) =>
