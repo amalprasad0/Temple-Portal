@@ -8,6 +8,7 @@ export function AdminPage() {
   const [Passcode, setPasscode] = useState("");
 
   const handleGeneratePasscode = async () => {
+    if(mobileNumber!=""){
     try {
       const resp = await axios.post("http://localhost:3000/userCode", {
         phoneNumber: mobileNumber,
@@ -22,6 +23,9 @@ export function AdminPage() {
     } catch (err) {
       console.log("err->", err);
     }
+}else{
+    alert('Please enter a valid Mobile Number')
+}
   };
   const handleCodeClick = async () => {
     if (navigator.share) {
