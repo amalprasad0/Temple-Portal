@@ -25,6 +25,7 @@ app.get("/memberdetails", (req, res) => {
                   memberDetails.push({
                       memberName: data.memberName,
                       mobileNo: data.mobileNo,
+                      familyName:data.family,
                       memberAddress: data.memberAddress,
                       memberDob: data.memberDob,
                       astroStar: data.astroStar,
@@ -148,22 +149,23 @@ app.get("/memberrequestmobile", async (req, res) => {
 });
 app.post("/userregistration", async (req, res) => {
   const { phoneNumber, UserCode } = req.body;
-
+  console.log(req.body)
   try {
     const userCodeDetails = db.collection("UserCodes").doc(phoneNumber);
     await userCodeDetails.get().then(async (doc) => {
       if (doc.exists) {
         const UserCoderecord = doc.data();
-        console.log("user->>", UserCoderecord.UserCode);
-        if (UserCode == UserCoderecord.UserCode) {
+        console.log("user->>", UserCoderecord);
+        if (UserCode == UserCoderecord.userCode) {
+          const userNumber="+91"+phoneNumber
           const userRecord = await auth.createUser({
-            phoneNumber,
+            userNumber,
           });
           console.log("User Added", userRecord.uid);
           const documentRef = await db.collection("admin").add({
             userPhoneNumber: `${phoneNumber}`,
             UserCode: `${UserCode}`,
-            userUid: `userRecord.uid`,
+            userUid: `${userRecord.uid}`,
           });
           console.log(req.body);
           console.log(`Document written with ID: ${documentRef.id}`);
@@ -211,39 +213,32 @@ function generateRandomCode(length) {
 app.post("/userCode", async (req, res) => {
   const { phoneNumber } = req.body;
   const documentDetails = db.collection("UserCodes").doc(phoneNumber);
-  documentDetails.get().then(async (doc) => {
+
+  try {
+    const doc = await documentDetails.get();
+
     if (doc.exists) {
-      res.json({ UsercodeIn: true, usercode: "exists" });
-      return;
+      return res.json({ userCodeExists: true, userCode: "exists" });
     } else {
       const randomCode = generateRandomCode(5);
-      try {
-        const documentRef = await db
-          .collection("UserCodes")
-          .doc(phoneNumber)
-          .set({
-            userPhoneNumber: phoneNumber,
-            UserCode: randomCode,
-          });
-
-        console.log(`Document written with ID: ${documentRef.id}`);
-        console.log(req.body);
-        console.log(`usercode generated`);
-      } catch (error) {
-        console.error("Error creating new userCode:", error);
-        if (error.code === "auth/invalid-phone-number") {
-          res
-            .status(400)
-            .json({ error: "Invalid phone number format", phoneNumber: false });
-        } else {
-          res
-            .status(500)
-            .json({ error: "Error creating new user", userExists: true });
-        }
-      }
+      await documentDetails.set({
+        userPhoneNumber: phoneNumber,
+        userCode: randomCode,
+      });
+      console.log(`User code generated for ${phoneNumber}: ${randomCode}`);
+      return res.status(200).json({ userCodeExists: false, userCode: randomCode });
     }
-  });
+  } catch (error) {
+    console.error("Error checking/updating user code:", error);
+
+    if (error.code === "auth/invalid-phone-number") {
+      return res.status(400).json({ error: "Invalid phone number format", phoneNumber: false });
+    } else {
+      return res.status(500).json({ error: "Error checking/updating user code", userCodeExists: true });
+    }
+  }
 });
+
 app.post("/userdetails",(req,res) => {
     const{name,mobile,address,star,familyName,pincode,area,dob}=req.body;
     console.log(req.body);

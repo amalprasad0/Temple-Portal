@@ -1,0 +1,19 @@
+/* MemberDetailsPage.css */
+
+.container {
+    margin-top: 20px;
+  }
+  
+  .search-bar {
+    margin-bottom: 20px;
+  }
+  
+  .accordion-item {
+    margin-bottom: 10px;
+  }
+  
+  /* Add more styles as needed */
+  .user-details-form {
+    max-width: 500px;
+    margin: 0 auto;
+  }
