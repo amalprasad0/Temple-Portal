@@ -192,7 +192,7 @@ export function UserDetailsPage() {
           </Card.Body>
         </Card>
       </div>
-      <p className='text-center'>നിങ്ങളുടെ വിശദാംശങ്ങൾ ഞങ്ങളുടെ സെർവറിൽ സുരക്ഷിതമാണ്</p>
+      <p className='text-center mt-4'>© Developed by Bharath Prayok Softwares Chittarikkal</p>
     </>
   );
 }

@@ -96,7 +96,7 @@ const navigateTo=useNavigate()
         >
          ലോഗിൻ ചെയുക
         </button>
-        <h6 className="py-3">Developed by Liquid Loop Codes Chittarikkal </h6>
+        <p className="py-3">©️ Developed by Bharath Prayok Softwares Chittarikkal </p>
       </div>
     </div>
   );

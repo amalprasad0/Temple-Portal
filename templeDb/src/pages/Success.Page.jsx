@@ -27,7 +27,7 @@ export function SuccessPage() {
         <h6>Contact our support center via 7306557354</h6>
       </div>
       
-      <p className='text-center mt-3 mt-auto'>Developed by Universal Technologies pvt Chittarikkal</p>
+      <p className='text-center mt-3 mt-auto'>©️ Developed by Bharath Prayok Softwares Chittarikkal</p>
     </div>
     </>
   );
