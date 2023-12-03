@@ -201,7 +201,7 @@ export function PujaDetailsPage() {
                 </div>
               </div>
             </div>
-          </div>
+          </div> 
           <div className="row mt-4 my-3">
             <div className="col-md-6">
               <div className="card" style={{}}>
