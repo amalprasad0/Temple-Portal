@@ -319,14 +319,13 @@ app.get("/getallpujadetails", async (req, res) => {
 });
 
 app.post("/todaypuja", async (req, res) => {
-  const { pujaName, price, membername, star, date } = req.body;
+  const { pujaName, price, star, date } = req.body;
   console.log(req.body);
 
   try {
     const doc = await db.collection("DailyPujaDetails").add({
       pujaName: pujaName,
       price: price,
-      membername: membername,
       star: star,
       pujaDate: date,
     });
