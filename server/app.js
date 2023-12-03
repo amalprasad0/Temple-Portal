@@ -307,6 +307,17 @@ app.post("/pujaadd", async (req, res) => {
     res.json({ message: "Error on submitting", success: false });
   }
 });
+app.get("/getallpujadetails", async (req, res) => {
+  try {
+    const allPujas = await db.collection("pujaDetails").get();
+    const pujasArray = allPujas.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+    res.json({ success: true, allPujas: pujasArray });
+  } catch (error) {
+    console.error(error);
+    res.json({ message: "Error retrieving puja details", success: false });
+  }
+});
+
 app.post("/todaypuja", async (req, res) => {
   const { pujaName, price, membername, star, date } = req.body;
   console.log(req.body);
