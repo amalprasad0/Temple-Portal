@@ -14,36 +14,36 @@ app.get("/", (req, res) => {
   res.send("hello");
 });
 app.get("/memberdetails", (req, res) => {
-  var docRef = db.collection('memberDetails');
+  var docRef = db.collection("memberDetails");
   try {
-      docRef.get().then((querySnapshot) => {
-          var memberDetails = [];
-          querySnapshot.forEach((doc) => {
-              if (doc.exists) {
-                  var data = doc.data();
-                  console.log("Document data:", data);
-                  memberDetails.push({
-                      memberName: data.memberName,
-                      mobileNo: data.mobileNo,
-                      familyName:data.family,
-                      memberAddress: data.memberAddress,
-                      memberDob: data.memberDob,
-                      astroStar: data.astroStar,
-                      pinCode: data.pinCode,
-                      memberArea: data.memberArea,
-                  });
-              } else {
-                  console.log("No such document!");
-              }
+    docRef.get().then((querySnapshot) => {
+      var memberDetails = [];
+      querySnapshot.forEach((doc) => {
+        if (doc.exists) {
+          var data = doc.data();
+          console.log("Document data:", data);
+          memberDetails.push({
+            memberName: data.memberName,
+            mobileNo: data.mobileNo,
+            familyName: data.family,
+            memberAddress: data.memberAddress,
+            memberDob: data.memberDob,
+            astroStar: data.astroStar,
+            pinCode: data.pinCode,
+            memberArea: data.memberArea,
           });
-          res.json({
-              message: 'Member Details Found',
-              memberdata: memberDetails
-          });
+        } else {
+          console.log("No such document!");
+        }
       });
+      res.json({
+        message: "Member Details Found",
+        memberdata: memberDetails,
+      });
+    });
   } catch (error) {
-      console.log("Error:", error);
-      res.status(500).json({ error: "Internal Server Error" });
+    console.log("Error:", error);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 });
 app.get("/memberrequestname", async (req, res) => {
@@ -51,67 +51,77 @@ app.get("/memberrequestname", async (req, res) => {
   const memberName = req.body.memberName;
 
   if (!memberName) {
-      return res.status(400).json({ error: "familyName parameter is required in the request body" });
+    return res
+      .status(400)
+      .json({ error: "familyName parameter is required in the request body" });
   }
 
   try {
-      // Retrieve documents with the specified familyName
-      const querySnapshot = await db.collection('memberDetails').where('memberName', '==', memberName).get();
-      const memberDetails = [];
+    // Retrieve documents with the specified familyName
+    const querySnapshot = await db
+      .collection("memberDetails")
+      .where("memberName", "==", memberName)
+      .get();
+    const memberDetails = [];
 
-      querySnapshot.forEach((doc) => {
-          if (doc.exists) {
-              const data = doc.data();
-              memberDetails.push({
-                  memberName: data.memberName,
-                  mobileNo: data.mobileNo,
-                  memberAddress: data.memberAddress,
-                  memberDob: data.memberDob,
-                  astroStar: data.astroStar,
-                  pinCode: data.pinCode,
-                  memberArea: data.memberArea
-              });
-          }
-      });
+    querySnapshot.forEach((doc) => {
+      if (doc.exists) {
+        const data = doc.data();
+        memberDetails.push({
+          memberName: data.memberName,
+          mobileNo: data.mobileNo,
+          memberAddress: data.memberAddress,
+          memberDob: data.memberDob,
+          astroStar: data.astroStar,
+          pinCode: data.pinCode,
+          memberArea: data.memberArea,
+        });
+      }
+    });
 
-      res.json({ message: "Member Details Found", success: true, memberDetails });
+    res.json({ message: "Member Details Found", success: true, memberDetails });
   } catch (error) {
-      console.error("Error:", error);
-      res.status(500).json({ error: "Internal Server Error" });
+    console.error("Error:", error);
+    res.status(500).json({ error: "Internal Server Error" });
   }
-});;
+});
 app.get("/memberrequestfamily", async (req, res) => {
   // Assuming familyName is passed in the request body
   const familyName = req.body.family;
 
   if (!familyName) {
-      return res.status(400).json({ error: "familyName parameter is required in the request body" });
+    return res
+      .status(400)
+      .json({ error: "familyName parameter is required in the request body" });
   }
 
   try {
-      // Retrieve documents with the specified familyName
-      const querySnapshot = await db.collection('memberDetails').where('familyName', '==', familyName).get();
-      const memberDetails = [];
+    // Retrieve documents with the specified familyName
+    const querySnapshot = await db
+      .collection("memberDetails")
+      .where("familyName", "==", familyName)
+      .get();
+    const memberDetails = [];
 
-      querySnapshot.forEach((doc) => {
-          if (doc.exists) {
-              const data = doc.data();
-              memberDetails.push({
-                  memberName: data.memberName,
-                  mobileNo: data.mobileNo,
-                  memberAddress: data.memberAddress,
-                  memberDob: data.memberDob,
-                  astroStar: data.astroStar,
-                  pinCode: data.pinCode,
-                  memberArea: data.memberArea
-              });
-          }
-      });
+    querySnapshot.forEach((doc) => {
+      if (doc.exists) {
+        const data = doc.data();
+        memberDetails.push({
+          memberName: data.memberName,
+          mobileNo: data.mobileNo,
+          memberAddress: data.memberAddress,
+          memberDob: data.memberDob,
+          astroStar: data.astroStar,
+          pinCode: data.pinCode,
+          memberArea: data.memberArea,
+        });
+      }
+    });
 
-      res.json({ message: "Member Details Found", success: true, memberDetails });
+    res.json({ message: "Member Details Found", success: true, memberDetails });
   } catch (error) {
-      console.error("Error:", error);
-      res.status(500).json({ error: "Internal Server Error" });
+    console.error("Error:", error);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 });
 app.get("/memberrequestmobile", async (req, res) => {
@@ -119,37 +129,42 @@ app.get("/memberrequestmobile", async (req, res) => {
   const mobileNo = req.body.mobile;
 
   if (!mobileNo) {
-      return res.status(400).json({ error: "familyName parameter is required in the request body" });
+    return res
+      .status(400)
+      .json({ error: "familyName parameter is required in the request body" });
   }
   try {
-      // Retrieve documents with the specified familyName
-      const querySnapshot = await db.collection('memberDetails').where('mobileNo', '==', mobileNo).get();
-      const memberDetails = [];
+    // Retrieve documents with the specified familyName
+    const querySnapshot = await db
+      .collection("memberDetails")
+      .where("mobileNo", "==", mobileNo)
+      .get();
+    const memberDetails = [];
 
-      querySnapshot.forEach((doc) => {
-          if (doc.exists) {
-              const data = doc.data();
-              memberDetails.push({
-                  memberName: data.memberName,
-                  mobileNo: data.mobileNo,
-                  memberAddress: data.memberAddress,
-                  memberDob: data.memberDob,
-                  astroStar: data.astroStar,
-                  pinCode: data.pinCode,
-                  memberArea: data.memberArea
-              });
-          }
-      });
+    querySnapshot.forEach((doc) => {
+      if (doc.exists) {
+        const data = doc.data();
+        memberDetails.push({
+          memberName: data.memberName,
+          mobileNo: data.mobileNo,
+          memberAddress: data.memberAddress,
+          memberDob: data.memberDob,
+          astroStar: data.astroStar,
+          pinCode: data.pinCode,
+          memberArea: data.memberArea,
+        });
+      }
+    });
 
-      res.json({ message: "Member Details Found", success: true, memberDetails });
+    res.json({ message: "Member Details Found", success: true, memberDetails });
   } catch (error) {
-      console.error("Error:", error);
-      res.status(500).json({ error: "Internal Server Error" });
+    console.error("Error:", error);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 });
 app.post("/userregistration", async (req, res) => {
   const { phoneNumber, UserCode } = req.body;
-  console.log(req.body)
+  console.log(req.body);
   try {
     const userCodeDetails = db.collection("UserCodes").doc(phoneNumber);
     await userCodeDetails.get().then(async (doc) => {
@@ -157,7 +172,7 @@ app.post("/userregistration", async (req, res) => {
         const UserCoderecord = doc.data();
         console.log("user->>", UserCoderecord);
         if (UserCode == UserCoderecord.userCode) {
-          const userNumber="+91"+phoneNumber
+          const userNumber = "+91" + phoneNumber;
           const userRecord = await auth.createUser({
             userNumber,
           });
@@ -193,9 +208,7 @@ app.post("/userregistration", async (req, res) => {
         .status(400)
         .json({ error: "Invalid phone number format", userReg: false });
     } else {
-      res
-        .status(500)
-        .json({ error: "user exists", userReg: false });
+      res.status(500).json({ error: "user exists", userReg: false });
     }
   }
 });
@@ -226,52 +239,65 @@ app.post("/userCode", async (req, res) => {
         userCode: randomCode,
       });
       console.log(`User code generated for ${phoneNumber}: ${randomCode}`);
-      return res.status(200).json({ userCodeExists: false, userCode: randomCode });
+      return res
+        .status(200)
+        .json({ userCodeExists: false, userCode: randomCode });
     }
   } catch (error) {
     console.error("Error checking/updating user code:", error);
 
     if (error.code === "auth/invalid-phone-number") {
-      return res.status(400).json({ error: "Invalid phone number format", phoneNumber: false });
+      return res
+        .status(400)
+        .json({ error: "Invalid phone number format", phoneNumber: false });
     } else {
-      return res.status(500).json({ error: "Error checking/updating user code", userCodeExists: true });
+      return res
+        .status(500)
+        .json({
+          error: "Error checking/updating user code",
+          userCodeExists: true,
+        });
     }
   }
 });
 
-app.post("/userdetails",(req,res) => {
-    const{name,mobile,address,star,familyName,pincode,area,dob}=req.body;
-    console.log(req.body);
-    try{
-        var doc=db.collection('memberDetails').add({
-            memberName:name,
-            mobileNo:mobile,
-            memberAddress:address,
-            memberDob:dob,
-            astroStar:star,
-            pinCode:pincode,
-            family:familyName,
-            memberArea:area
-        })
-        console.log("added ",doc);
-        res.json({message:"added",success:true})
-    }catch(error){
-        console.log(error);
-        res.json({message:"Error on submiting",success:false})
-    }
-})
+app.post("/userdetails", (req, res) => {
+  const { name, mobile, address, star, familyName, pincode, area, dob } =
+    req.body;
+  console.log(req.body);
+  try {
+    var doc = db.collection("memberDetails").add({
+      memberName: name,
+      mobileNo: mobile,
+      memberAddress: address,
+      memberDob: dob,
+      astroStar: star,
+      pinCode: pincode,
+      family: familyName,
+      memberArea: area,
+    });
+    console.log("added ", doc);
+    res.json({ message: "added", success: true });
+  } catch (error) {
+    console.log(error);
+    res.json({ message: "Error on submiting", success: false });
+  }
+});
 app.post("/pujaadd", async (req, res) => {
   const { pujaName, price } = req.body;
   console.log(req.body);
   try {
-    const existingPuja = await db.collection('pujaDetails').where('pujaName', '==', pujaName).get();
+    const existingPuja = await db
+      .collection("pujaDetails")
+      .where("pujaName", "==", pujaName)
+      .get();
 
     if (existingPuja.docs.length > 0) {
       res.json({ message: "Puja already exists, not added", success: false });
     } else {
-      const doc = await db.collection('pujaDetails').add({
+      const doc = await db.collection("pujaDetails").add({
         pujaName: pujaName,
-        price: price
+        price: price,
       });
       console.log("Added ", doc.id);
       res.json({ message: "Puja added successfully", success: true });
@@ -282,16 +308,16 @@ app.post("/pujaadd", async (req, res) => {
   }
 });
 app.post("/todaypuja", async (req, res) => {
-  const { pujaName, price, membername, star,date } = req.body;
+  const { pujaName, price, membername, star, date } = req.body;
   console.log(req.body);
 
   try {
-    const doc = await db.collection('pujaDetails').add({
+    const doc = await db.collection("DailyPujaDetails").add({
       pujaName: pujaName,
       price: price,
-      membername: membername, 
+      membername: membername,
       star: star,
-      pujaDate:date
+      pujaDate: date,
     });
 
     console.log("Added ", doc.id);
@@ -301,41 +327,20 @@ app.post("/todaypuja", async (req, res) => {
     res.json({ message: "Error on submitting", success: false });
   }
 });
-app.get("/monthlypujastats", async (req, res) => {
+app.get("/getalldetails", async (req, res) => {
   try {
-   
-    const startDate = new Date(); 
-    startDate.setDate(1); 
-    startDate.setHours(0, 0, 0, 0); 
+    const allDetails = await db.collection("DailyPujaDetails").get();
 
-    const endDate = new Date(); 
-    endDate.setMonth(endDate.getMonth() + 1, 0); 
-    endDate.setHours(23, 59, 59, 999); 
+    // Convert the retrieved data to an array
+    const detailsArray = allDetails.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
 
-    const querySnapshot = await db
-      .collection("pujaDetails")
-      .where("pujaDate", ">=", startDate)
-      .where("pujaDate", "<=", endDate)
-      .get();
-
-    const monthlyPujas = [];
-    let totalPujaPrice = 0;
-
-    querySnapshot.forEach((doc) => {
-      const { pujaName, price } = doc.data();
-      monthlyPujas.push({ pujaName, price });
-      totalPujaPrice += price;
-    });
-
-    res.json({
-      message: "Monthly Puja stats retrieved successfully",
-      success: true,
-      monthlyPujas,
-      totalPujaPrice,
-    });
+    res.json({ success: true, allDetails: detailsArray });
   } catch (error) {
     console.error(error);
-    res.json({ message: "Error retrieving monthly Puja stats", success: false });
+    res.json({ message: "Error retrieving details", success: false });
   }
 });
 
