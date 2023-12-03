@@ -260,6 +260,85 @@ app.post("/userdetails",(req,res) => {
         res.json({message:"Error on submiting",success:false})
     }
 })
+app.post("/pujaadd", async (req, res) => {
+  const { pujaName, price } = req.body;
+  console.log(req.body);
+  try {
+    const existingPuja = await db.collection('pujaDetails').where('pujaName', '==', pujaName).get();
+
+    if (existingPuja.docs.length > 0) {
+      res.json({ message: "Puja already exists, not added", success: false });
+    } else {
+      const doc = await db.collection('pujaDetails').add({
+        pujaName: pujaName,
+        price: price
+      });
+      console.log("Added ", doc.id);
+      res.json({ message: "Puja added successfully", success: true });
+    }
+  } catch (error) {
+    console.error(error);
+    res.json({ message: "Error on submitting", success: false });
+  }
+});
+app.post("/todaypuja", async (req, res) => {
+  const { pujaName, price, membername, star,date } = req.body;
+  console.log(req.body);
+
+  try {
+    const doc = await db.collection('pujaDetails').add({
+      pujaName: pujaName,
+      price: price,
+      membername: membername, 
+      star: star,
+      pujaDate:date
+    });
+
+    console.log("Added ", doc.id);
+    res.json({ message: "Puja added successfully", success: true });
+  } catch (error) {
+    console.error(error);
+    res.json({ message: "Error on submitting", success: false });
+  }
+});
+app.get("/monthlypujastats", async (req, res) => {
+  try {
+   
+    const startDate = new Date(); 
+    startDate.setDate(1); 
+    startDate.setHours(0, 0, 0, 0); 
+
+    const endDate = new Date(); 
+    endDate.setMonth(endDate.getMonth() + 1, 0); 
+    endDate.setHours(23, 59, 59, 999); 
+
+    const querySnapshot = await db
+      .collection("pujaDetails")
+      .where("pujaDate", ">=", startDate)
+      .where("pujaDate", "<=", endDate)
+      .get();
+
+    const monthlyPujas = [];
+    let totalPujaPrice = 0;
+
+    querySnapshot.forEach((doc) => {
+      const { pujaName, price } = doc.data();
+      monthlyPujas.push({ pujaName, price });
+      totalPujaPrice += price;
+    });
+
+    res.json({
+      message: "Monthly Puja stats retrieved successfully",
+      success: true,
+      monthlyPujas,
+      totalPujaPrice,
+    });
+  } catch (error) {
+    console.error(error);
+    res.json({ message: "Error retrieving monthly Puja stats", success: false });
+  }
+});
+
 app.post("/delete", (req, res) => {});
 
 const PORT = process.env.PORT || 3000;
