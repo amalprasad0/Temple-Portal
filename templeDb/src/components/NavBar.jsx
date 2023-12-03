@@ -38,7 +38,7 @@ export function NavBar() {
                     console.log(`Fallback: Share this URL: ${currentURL}`);
                   }
                 }}
-              >
+              > 
                 ലിങ്ക് പങ്കിടുക
               </Nav.Link>
 
