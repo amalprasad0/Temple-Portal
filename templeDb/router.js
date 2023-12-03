@@ -1,4 +1,4 @@
-import { HomePage,LoginPage,MemberDetailsPage,UserDetailsPage,SuccessPage,BirthdayDetailsPage,AdminPage,PujaPage,DailyPujaPage } from "./src/pages"
+import { HomePage,LoginPage,MemberDetailsPage,UserDetailsPage,SuccessPage,BirthdayDetailsPage,AdminPage,PujaPage,DailyPujaPage,PujaDetailsPage} from "./src/pages"
 
 
 export const pageRoutes = [
@@ -10,5 +10,6 @@ export const pageRoutes = [
     {path:"/birthday",component:BirthdayDetailsPage},
     {path:"/genereatecode",component:AdminPage},
     {path:"/pujapage",component:PujaPage},
-    {path:"/dailypuja",component:DailyPujaPage}
+    {path:"/dailypuja",component:DailyPujaPage},
+    {path:"/getDetails",component:PujaDetailsPage},
 ]

@@ -11,11 +11,14 @@ export function NavBar() {
         <Container>
           <Navbar.Brand href="#/member">ക്ഷേത്രം പോർട്ടൽ</Navbar.Brand>
           <Navbar.Toggle aria-controls="navbar-nav" />
-          <Navbar.Collapse id="navbar-nav">
+          <Navbar.Collapse id="navbar-nav">#/getDetails
             <Nav className="ml-auto">
               <Nav.Link href="#/userdetails">വിവരങ്ങൾ ചേർക്കുക</Nav.Link>
               <Nav.Link href="#/birthday">ഇന്ന് ജന്മദിനം</Nav.Link>
               <Nav.Link href="#/member">അംഗങ്ങളുടെ വിശദാംശങ്ങൾ</Nav.Link>
+              <Nav.Link href="#/pujapage"> പുതിയ പൂജ ചേർക്കാൻ</Nav.Link>
+              <Nav.Link href="#/dailypuja"> ഇന്നത്തെ പൂജ ചേർക്കാൻ</Nav.Link>
+              <Nav.Link href="#/getDetails">സാമ്പത്തികക്കണക്ക്</Nav.Link>
               <Nav.Link
                 onClick={async () => {
                   const currentURL = window.location.href;

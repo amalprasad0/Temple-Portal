@@ -1,12 +1,17 @@
 import axios from "axios";
-import React, { useState, } from "react";
+import React, { useState,useEffect } from "react";
 import { Card, Form, Button } from "react-bootstrap";
 import { NavBar } from "../components/NavBar";
 
 export function AdminPage() {
   const [mobileNumber, setMobileNumber] = useState("");
   const [Passcode, setPasscode] = useState("");
-
+  useEffect(() => {
+    const isLoggedIn = localStorage.getItem("login") == 'true';
+    if (!isLoggedIn) {
+      navigateTo("/");
+    }
+  }, []);
   const handleGeneratePasscode = async () => {
     if(mobileNumber!=""){
     try {
